@@ -31,12 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
       navOverlay.style.pointerEvents = "all";
       // Add "menu-open" class to toggle button for styling
       menuToggleBtn.classList.add("menu-open");
-      // Store current scroll position
-      scrollY = window.scrollY;
-      // Lock body scroll by fixing position
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`; // Preserve scroll position
-      document.body.style.width = "100%"; // Prevent width shift
+      
+      // Pause lenis scrolling natively without destroying GSAP scroll triggers
+      if (window.lenis) window.lenis.stop();
 
       // Animate open label upward
       gsap.to(openLabel, {
@@ -78,12 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
       navOverlay.style.pointerEvents = "none";
       // Remove "menu-open" class from toggle button
       menuToggleBtn.classList.remove("menu-open");
-      // Restore body scroll
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      // Restore scroll position
-      window.scrollTo(0, scrollY);
+      
+      // Resume lenis scrolling natively
+      if (window.lenis) window.lenis.start();
 
       // Animate open label back to original position
       gsap.to(openLabel, {

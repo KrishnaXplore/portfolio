@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== SCROLL REVEAL ANIMATIONS =====
   // Fade-in elements as they enter viewport
   const revealElements = document.querySelectorAll(
-    ".about-hero-bio, .experience-header, .roadmap-item, .services-header-content, .contact-cta .contact-button, .footer-header, .footer-row, .contact-left, .contact-form-container"
+    ".about-hero-bio, .experience-header, .roadmap-item, .featured-title-wrapper, .services-header-content, .service-card, .contact-cta .contact-button, .footer-header, .footer-row, .contact-left, .contact-form-container"
   );
 
   revealElements.forEach((el) => {
@@ -146,10 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== PARALLAX ON PORTRAIT =====
   // Enhance existing portrait parallax with subtle scale
-  if (window.innerWidth > 1000) {
-    const portrait = document.querySelector(".about-hero-portrait");
-    if (portrait) {
-      ScrollTrigger.create({
+  const portrait = document.querySelector(".about-hero-portrait");
+  if (portrait) {
+    ScrollTrigger.create({
         trigger: ".about-hero",
         start: "top top",
         end: "bottom top",
@@ -161,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
     }
-  }
 
   // ===== NAV ITEM HOVER ANIMATIONS =====
   const navItems = document.querySelectorAll(".nav-item");

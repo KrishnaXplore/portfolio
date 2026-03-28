@@ -87,14 +87,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, 250);
 
+  window.forceHeroShatter = () => {
+    if (scrollTriggerInstance1) scrollTriggerInstance1.disable();
+    if (scrollTriggerInstance2) scrollTriggerInstance2.disable();
+
+    const mainImg = document.querySelector(".hero-img img");
+    const shatterContainer = document.querySelector(".hero-img-shatter-container");
+    
+    gsap.set(mainImg, { opacity: 0 });
+    gsap.to(shatterContainer, { borderColor: "rgba(240, 240, 240, 0)", duration: 0.5 });
+    gsap.set(shards, { opacity: 1 });
+
+    shards.forEach(shard => {
+      const vx = parseFloat(shard.dataset.vx);
+      const vy = parseFloat(shard.dataset.vy);
+      const vrX = parseFloat(shard.dataset.vrX);
+      const vrY = parseFloat(shard.dataset.vrY);
+      const vrZ = parseFloat(shard.dataset.vrZ);
+      
+      gsap.to(shard, {
+        x: vx,
+        y: vy + 3000,
+        rotationX: vrX,
+        rotationY: vrY,
+        rotationZ: vrZ,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out"
+      });
+    });
+  };
+
   const initAnimations = () => {
     if (scrollTriggerInstance1) scrollTriggerInstance1.kill();
     if (scrollTriggerInstance2) scrollTriggerInstance2.kill();
-
-    if (window.innerWidth <= 1000) {
-      gsap.set(".hero-img", { y: "0%", scale: 1, rotation: 0 });
-      return;
-    }
 
     scrollTriggerInstance1 = ScrollTrigger.create({
       trigger: ".hero-img-holder",
@@ -141,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
               opacity: 1 - Math.pow(p, 2),
             });
           });
-        } else {
+        } else if (p === 0) {
           gsap.set(mainImg, { opacity: 1 });
           gsap.set(shatterContainer, { borderColor: "var(--fg)" });
           gsap.set(shards, { opacity: 0, x: 0, y: 0, rotationX: 0, rotationY: 0, rotationZ: 0 });
