@@ -409,6 +409,10 @@
   }
   
   @media (max-width: 1000px) {
+    .hero .hero-header h1 {
+      font-size: 24vw;
+    }
+
     .roadmap-item {
       padding-left: 3em;
     }

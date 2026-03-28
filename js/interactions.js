@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== SCROLL REVEAL ANIMATIONS =====
   // Fade-in elements as they enter viewport
   const revealElements = document.querySelectorAll(
-    ".about-hero-bio, .experience-header, .roadmap-item, .featured-title-wrapper, .services-header-content, .service-card, .contact-cta .contact-button, .footer-header, .footer-row, .contact-left, .contact-form-container"
+    ".about-hero-bio, .experience-header, .roadmap-item, .featured-title-wrapper, .services-header-content, .service-card, .contact-cta .contact-button, .footer-header, .footer-row"
   );
 
   revealElements.forEach((el) => {
