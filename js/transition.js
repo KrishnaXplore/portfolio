@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Trigger initial reveal transition on page load
   revealTransition();
 
+  // Handle back button (bfcache) restoring page in completed transition state
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      revealTransition();
+    }
+  });
+
   // Reveal Transition: Animates overlay scaling down to reveal page
   function revealTransition() {
     return new Promise((resolve) => {
