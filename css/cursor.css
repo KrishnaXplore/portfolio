@@ -1,0 +1,59 @@
+/* Custom Cursor */
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(240, 240, 240, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+}
+
+/* Cursor states */
+.cursor-follower.cursor-hover {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(240, 240, 240, 0.8);
+  background-color: rgba(240, 240, 240, 0.05);
+}
+
+.cursor-follower.cursor-text {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(240, 240, 240, 0.3);
+  background-color: rgba(240, 240, 240, 0.03);
+}
+
+.cursor-follower.cursor-hidden {
+  width: 0;
+  height: 0;
+  border-color: transparent;
+}
+
+@media (max-width: 1000px) {
+  .cursor-follower,
+  .cursor-dot {
+    display: none !important;
+  }
+}
