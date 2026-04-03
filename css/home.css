@@ -220,7 +220,7 @@
   
   .featured-work .featured-titles {
     position: relative;
-    width: 600vw;
+    width: 700vw;
     height: 100vh;
     display: flex;
     will-change: transform;
