@@ -16,14 +16,17 @@
     box-sizing: border-box;
   }
   
-  body {
+  html, body {
     background-color: var(--bg);
     color: var(--fg);
     overflow-x: hidden;
     cursor: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
   
-  body::-webkit-scrollbar {
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
     width: 0;
   }
   

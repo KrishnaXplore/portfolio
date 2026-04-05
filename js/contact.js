@@ -54,35 +54,93 @@ document.addEventListener("DOMContentLoaded", () => {
   const successMessage = document.getElementById("successMessage");
 
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const firstName = document.getElementById("firstName").value;
-      const lastName = document.getElementById("lastName").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-      const projectType = document.getElementById("projectType").value;
-      const message = document.getElementById("message").value;
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalBtnText = submitBtn.textContent;
+      
+      // Update UI to sending state
+      submitBtn.textContent = "Sending...";
+      submitBtn.style.opacity = "0.7";
+      submitBtn.style.pointerEvents = "none";
 
-      const subject = encodeURIComponent(`${projectType} - ${firstName} ${lastName}`);
-      const body = encodeURIComponent(
-        `Name: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nInquiry Type: ${projectType}\n\nMessage:\n${message}`
-      );
+      const formData = {
+        first_name: document.getElementById("firstName").value,
+        last_name: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        project_type: document.getElementById("projectType").value,
+        message: document.getElementById("message").value,
+      };
 
-      window.open(`mailto:dixitatharvv@gmail.com?subject=${subject}&body=${body}`, "_blank");
-
-      // Show success message with animation
-      if (successMessage) {
-        successMessage.classList.add("show");
-        gsap.from(successMessage, {
-          y: 15,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power3.out",
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         });
-      }
 
-      form.reset();
+        // First, check if the request was successful
+        if (!response.ok) {
+          let errorMessage = `Submission failed (${response.status})`;
+          
+          try {
+            // Attempt to get JSON error message if available
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            // If response is not JSON (e.g. 404 HTML page), use status text
+            errorMessage = `API Error: ${response.statusText || 'Endpoint not found'}`;
+            if (response.status === 404) {
+              errorMessage = "API endpoint not found. Please ensure you are running 'vercel dev' or have deployed the functions.";
+            }
+          }
+          throw new Error(errorMessage);
+        }
+
+        // Now, verify the content type before parsing JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Server returned an invalid response format (Expected JSON)');
+        }
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Show success message with animation
+          if (successMessage) {
+            successMessage.innerHTML = "<p>Message received. I'll get back to you soon.</p>";
+            successMessage.classList.add("show");
+            gsap.from(successMessage, {
+              y: 15,
+              opacity: 0,
+              duration: 0.5,
+              ease: "power3.out",
+            });
+          }
+          form.reset();
+          
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 5000);
+        } else {
+          throw new Error(result.error || 'Failed to send message');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        if (successMessage) {
+          successMessage.innerHTML = `<p style="color: #ff4d4d; font-size: 0.8rem;">${error.message}</p>`;
+          successMessage.classList.add("show");
+        }
+      } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.pointerEvents = "all";
+      }
     });
   }
 

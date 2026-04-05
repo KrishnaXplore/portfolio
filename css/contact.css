@@ -1,6 +1,6 @@
 .contact {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding: 1.5em;
   display: grid;
@@ -319,6 +319,7 @@
   height: 100%;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
 .floating-element {
