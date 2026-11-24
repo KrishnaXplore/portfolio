@@ -1,7 +1,7 @@
 {
-  "name": "atharv-dixit-portfolio",
+  "name": "krishna-kapale-portfolio",
   "version": "1.0.0",
-  "description": "Atharv Dixit - Backend Developer & Competitive Programmer Portfolio",
+  "description": "Krishna Kapale - Backend Developer & Competitive Programmer Portfolio",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -13,9 +13,9 @@
     "portfolio",
     "backend developer",
     "competitive programming",
-    "atharv dixit"
+    "krishna kapale"
   ],
-  "author": "Atharv Dixit",
+  "author": "Krishna Kapale",
   "license": "MIT",
   "dependencies": {
     "gsap": "^3.13.0",

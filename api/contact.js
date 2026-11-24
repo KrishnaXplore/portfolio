@@ -38,7 +38,7 @@ export default async function handler(req, res) {
                 New Contact Message
               </h1>
               <p style="margin: 8px 0 0; color: #888; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">
-                Atharv Dixit Portfolio &bull; Inquiry Alert
+                Krishna Kapale Portfolio &bull; Inquiry Alert
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default async function handler(req, res) {
             <!-- Footer -->
             <div style="padding: 25px 30px; background-color: #0a0a0a; border-top: 1px solid #222; text-align: center;">
               <p style="margin: 0; color: #444; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
-                &copy; 2026 Atharv Dixit &bull; Built with Resend
+                &copy; 2026 Krishna Kapale &bull; Built with Resend
               </p>
             </div>
 
